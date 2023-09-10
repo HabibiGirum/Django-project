@@ -1,8 +1,12 @@
 from django.shortcuts import render
-
+from .models import Project
 def projects(request):
-    page ='Projects'
-    return render(request, 'projects/projects.html',{'page':page})
+    projects = Project.objects.all()
+    context ={'projects':projects}
+    return render(request, 'projects/projects.html',context)
 
 def project(request,pk):
-    return render(request,'single-project.html')
+    projectObj = Project.objects.get(id=pk)
+    tags = projectObj.tags.all()
+    print('projectObj:',projectObj)
+    return render(request,'projects/single-project.html',{'project':projectObj,'tags':tags})

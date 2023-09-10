@@ -1,12 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>This is project template .</h1>
-    <p>Hello you are on {{page}} page.</p>
-</body>
-</html>
+{%block content%}
+<h1>Projects</h1>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Project</th>
+        <th>Positive Votes</th>
+        <th>Vote</th>
+        <th></th>
+    </tr>
+    {%for project in projects %}
+    <tr>
+        <td>{{project.id}}</td>
+        <td>{{project.title}}</td>
+        <td>{{project.vote_ratio}}%</td>
+        <td>{{project.vote_total}}</td>
+        <td>{{project.created}}</td>
+        <td><a href="{%url 'project' project.id%}">View</a></td>
+    </tr>
+    {%endfor%}
+</table>
+{%endblock%}
