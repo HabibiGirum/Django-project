@@ -1,5 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from .models import Project
+
+from .forms import ProjectForm
+
 def projects(request):
     projects = Project.objects.all()
     context ={'projects':projects}
@@ -13,5 +16,13 @@ def project(request,pk):
 
 
 def createProject(request):
-    context ={}
+    form=ProjectForm
+
+    if request.method == 'POST':
+    
+        form =ProjectForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('projects')
+    context ={'forms':form}
     return render(request,"projects/project_form.html",context)
